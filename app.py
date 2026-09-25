@@ -2,6 +2,7 @@
 import streamlit as st
 from curriculum import LESSONS, REF
 from deeper import DEPTH
+from concept_cards import CARDS, CORE_TABLES, LEARNING
 
 st.set_page_config(page_title="Intel AI/ML TPM Compass",page_icon="🧭",layout="wide")
 st.title("🧭 Intel AI/ML TPM Compass")
@@ -17,7 +18,7 @@ for tab,x in zip(tabs[1:1+len(LESSONS)],LESSONS):
   st.header(x["title"])
   st.caption(x["level"]+" · Intel AI/ML customer-engineering TPM")
   st.subheader("Bare minimum concepts")
-  st.dataframe([{"#":i,"Concept to remember":term} for i,term in enumerate(x["terms"],1)],hide_index=True,use_container_width=True)
+  st.dataframe([{"Concept":name,"Intuitive example or use case":example,"TPM takeaway":takeaway,"Key metric or formula":metric} for name,example,takeaway,metric in CARDS[x["title"]]],hide_index=True,use_container_width=True)
   left,right=st.columns(2)
   left.metric("KPI to discuss",x["metric"])
   right.info("**Formula / estimate**\n\n"+x["formula"])
@@ -71,6 +72,16 @@ with tabs[-2]:
 with tabs[-1]:
  st.header("📚 Master cheatsheet")
  st.dataframe([{"Stage":x["level"],"Topic":x["title"],"Three concepts":" · ".join(x["terms"]),"KPI":x["metric"],"Additional metrics":" · ".join(DEPTH[x["title"]]["metrics"]),"Formula":x["formula"],"Example":x["example"]} for x in LESSONS],hide_index=True,use_container_width=True)
+ st.subheader("Core AI/ML learning tables")
+ for heading,rows in CORE_TABLES.items():
+  st.markdown("**"+heading+"**")
+  st.dataframe([{"Concept or stage":a,"Plain-language meaning":b,"Use case or focus":c,"Metric or risk":d,"Source":LEARNING.get(e,REF.get(e,""))} for a,b,c,d,e in rows],hide_index=True,use_container_width=True,column_config={"Source":st.column_config.LinkColumn("Source")})
+ st.markdown("**Foundational learning references:** "+" · ".join(f"[{name}]({url})" for name,url in LEARNING.items()))
+ st.subheader("Intuitive latency visual · illustrative")
+ prompt_ms=st.slider("Prompt processing + queue (ms)",0,3000,450,50,key="visual_prompt")
+ decode_ms=st.slider("Decode time (ms)",0,6000,1200,50,key="visual_decode")
+ st.bar_chart({"Illustrative latency (ms)":{"Prompt + queue":prompt_ms,"Decode":decode_ms}})
+ st.caption("Values are user-selected teaching examples, not measured Intel or model performance. Total = prompt + queue + decode in this simplified view.")
  st.subheader("Four customer POC gates")
  st.dataframe([{"Gate":"1 · Functional","Proof":"Named model loads; representative outputs pass; exact stack pinned"},{"Gate":"2 · Portability","Proof":"Intel target supports model, operators, precision and drivers"},{"Gate":"3 · Performance","Proof":"Comparable latency and throughput at equal quality and workload"},{"Gate":"4 · Production","Proof":"SLO, monitoring, load test, rollback, owner and sign-off"}],hide_index=True,use_container_width=True)
  st.subheader("Official references")
