@@ -1,6 +1,7 @@
 """Intel AI/ML TPM Compass: staged, source-linked, interactive quick reference."""
 import streamlit as st
 from curriculum import LESSONS, REF
+from deeper import DEPTH
 
 st.set_page_config(page_title="Intel AI/ML TPM Compass",page_icon="🧭",layout="wide")
 st.title("🧭 Intel AI/ML TPM Compass")
@@ -21,12 +22,23 @@ for tab,x in zip(tabs[1:1+len(LESSONS)],LESSONS):
   left.metric("KPI to discuss",x["metric"])
   right.info("**Formula / estimate**\n\n"+x["formula"])
   st.markdown("**Practical customer example:** "+x["example"])
+  extra=DEPTH[x["title"]]
+  st.subheader("One level deeper · what a senior TPM should know")
+  for item in extra["details"]: st.markdown("- "+item)
+  st.markdown("**Additional high-value metrics:** "+" · ".join(extra["metrics"]))
   st.subheader("Test yourself · essential questions")
   for i,(q,ideal) in enumerate(x["quiz"]):
    with st.expander(f"Q{i+1}. {q}"):
     st.text_area("Try your answer first",key=f"draft_{x['title']}_{i}",height=75)
     if st.checkbox("Show ideal practical answer",key=f"show_{x['title']}_{i}"): st.success(ideal)
+  st.subheader("Senior technical TPM interview question")
+  question,ideal=extra["interview"]
+  with st.expander(question):
+   st.text_area("Practice a concise answer",key="interview_"+x["title"],height=90)
+   if st.checkbox("Show strong expected answer",key="interview_reveal_"+x["title"]): st.success(ideal)
   st.markdown("**Official references:** "+" · ".join(f"[{r}]({REF[r]})" for r in x["refs"]))
+  st.subheader("Most costly common mistakes · and how to avoid them")
+  st.dataframe([{"Mistake":mistake,"Better practice":fix} for mistake,fix in extra["mistakes"]],hide_index=True,use_container_width=True)
   st.caption("Always state units, workload, software versions and test conditions with a metric.")
 with tabs[-2]:
  st.header("🧮 TPM quick calculators")
@@ -58,7 +70,7 @@ with tabs[-2]:
   st.caption("Choose metrics appropriate to the task and the cost of errors.")
 with tabs[-1]:
  st.header("📚 Master cheatsheet")
- st.dataframe([{"Stage":x["level"],"Topic":x["title"],"Three concepts":" · ".join(x["terms"]),"KPI":x["metric"],"Formula":x["formula"],"Example":x["example"]} for x in LESSONS],hide_index=True,use_container_width=True)
+ st.dataframe([{"Stage":x["level"],"Topic":x["title"],"Three concepts":" · ".join(x["terms"]),"KPI":x["metric"],"Additional metrics":" · ".join(DEPTH[x["title"]]["metrics"]),"Formula":x["formula"],"Example":x["example"]} for x in LESSONS],hide_index=True,use_container_width=True)
  st.subheader("Four customer POC gates")
  st.dataframe([{"Gate":"1 · Functional","Proof":"Named model loads; representative outputs pass; exact stack pinned"},{"Gate":"2 · Portability","Proof":"Intel target supports model, operators, precision and drivers"},{"Gate":"3 · Performance","Proof":"Comparable latency and throughput at equal quality and workload"},{"Gate":"4 · Production","Proof":"SLO, monitoring, load test, rollback, owner and sign-off"}],hide_index=True,use_container_width=True)
  st.subheader("Official references")

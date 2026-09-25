@@ -8,7 +8,9 @@ REF={
 "vLLM prefix cache":"https://docs.vllm.ai/en/latest/features/automatic_prefix_caching.html",
 "vLLM disaggregation":"https://docs.vllm.ai/en/latest/features/disagg_prefill/",
 "Kubernetes HPA":"https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/",
+"Kubernetes probes":"https://kubernetes.io/docs/concepts/workloads/pods/probes/",
 "MLPerf inference":"https://mlcommons.org/benchmarks/inference/",
+"MLPerf scenarios":"https://docs.mlcommons.org/inference/submission/",
 }
 # Title, level, concepts, KPI, formula, customer example, Q/A pairs, references.
 ROWS=[
@@ -26,3 +28,6 @@ ROWS=[
 ("Customer engineering & career","Advanced",["POC proves feasibility; pilot tests limited use; production needs SLO","RAID tracks risks, assumptions, issues and dependencies","Executive update states evidence, decision, risk, owner and date"],"Time to first run; acceptance; adoption","Cost/1M output tokens = hourly serving cost / output tokens/hour × 1,000,000","Intel customer POC: baseline, qualify, benchmark, resolve gaps and get sign-off.",[("What is a senior TPM update?","Outcome, evidence, top risk, decision needed, owner and date."),("What makes an interview story credible?","Scope, your decisions and influence, quantified result and learning.")],["Intel Arc Pro","Intel Gaudi performance"]),
 ]
 LESSONS=[{"title":a,"level":b,"terms":c,"metric":d,"formula":e,"example":f,"quiz":g,"refs":h} for a,b,c,d,e,f,g,h in ROWS]
+for lesson in LESSONS:
+    if lesson["title"]=="Serving & Kubernetes": lesson["refs"].append("Kubernetes probes")
+    if lesson["title"]=="Benchmark & optimization": lesson["refs"].append("MLPerf scenarios")

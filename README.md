@@ -1,6 +1,6 @@
 # Intel AI/ML TPM Compass
 
-A Streamlit quick reference for beginner Intel AI/ML TPMs. Twelve sequenced lesson tabs cover system basics, AI/ML, quality, training, inference, Intel hardware and software, benchmarks, Kubernetes, incidents, agents and customer engineering. Each lesson includes concepts, a KPI, a formula, a use case, two questions and expected answers. Four calculators and a master cheatsheet are included. Curated 25 September 2026.
+A Streamlit quick reference for Intel AI/ML TPMs progressing toward senior technical roles. Twelve sequenced lesson tabs cover system basics, AI/ML, quality, training, inference, Intel hardware and software, benchmarks, Kubernetes, incidents, agents and customer engineering. Each lesson includes concepts, deeper practical details, metrics, a formula, a use case, two knowledge questions, a senior TPM interview question with an expected answer, and common mistakes with fixes. Four calculators and a master cheatsheet are included. Curated 25 September 2026.
 
 ## Run locally
 
