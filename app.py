@@ -4,6 +4,7 @@ from curriculum import LESSONS, REF
 from deeper import DEPTH
 from concept_cards import CARDS, CORE_TABLES, LEARNING
 from visuals import show_visual
+from tpm_numbers import render_numbers, render_okr, render_compendium
 
 st.set_page_config(page_title="Intel AI/ML TPM Compass",page_icon="🧭",layout="wide")
 st.title("🧭 Intel AI/ML TPM Compass")
@@ -16,6 +17,8 @@ with tabs[0]:
  st.markdown("**How to use it:** Pick a tab, explain its concepts aloud, solve its two questions, and use the KPI and example in your next project review.")
  st.subheader("Visual memory cue")
  show_visual("Start")
+ render_numbers("Start")
+ render_okr("Start")
 for tab,x in zip(tabs[1:1+len(LESSONS)],LESSONS):
  with tab:
   st.header(x["title"])
@@ -46,6 +49,8 @@ for tab,x in zip(tabs[1:1+len(LESSONS)],LESSONS):
   st.caption("Always state units, workload, software versions and test conditions with a metric.")
   st.subheader("Visual memory cue")
   show_visual(x["title"])
+  render_numbers(x["title"])
+  render_okr(x["title"])
 with tabs[-2]:
  st.header("🧮 TPM quick calculators")
  choice=st.selectbox("Choose a calculator",["Model weight memory","LLM response-time estimate","Throughput and cost","Classification quality"])
@@ -76,6 +81,7 @@ with tabs[-2]:
   st.caption("Choose metrics appropriate to the task and the cost of errors.")
  st.subheader("Visual memory cue")
  show_visual("Calculators")
+ render_compendium("calculators")
 with tabs[-1]:
  st.header("📚 Master cheatsheet")
  st.dataframe([{"Stage":x["level"],"Topic":x["title"],"Three concepts":" · ".join(x["terms"]),"KPI":x["metric"],"Additional metrics":" · ".join(DEPTH[x["title"]]["metrics"]),"Formula":x["formula"],"Example":x["example"]} for x in LESSONS],hide_index=True,use_container_width=True)
@@ -96,3 +102,4 @@ with tabs[-1]:
  st.caption("Editorial essentials, not a measured top-1% ranking. Verify current product and framework support.")
  st.subheader("Visual memory cue")
  show_visual("Master cheatsheet")
+ render_compendium("master")

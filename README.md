@@ -1,6 +1,6 @@
 # Intel AI/ML TPM Compass
 
-A Streamlit quick reference for Intel AI/ML TPMs progressing toward senior technical roles. Twelve sequenced lesson tabs cover system basics, AI/ML, quality, training, inference, Intel hardware and software, benchmarks, Kubernetes, incidents, agents and customer engineering. Each lesson has a five-row concept table with an intuitive use case, TPM takeaway and metric, plus deeper notes, self-check questions, an interview answer and common mistakes. Four calculators and consolidated master learning tables are included. Every tab ends with a distinct animated, code-native SVG concept cartoon; reduced-motion visitors see a static visual. Curated 29 September 2026.
+A Streamlit quick reference for Intel AI/ML TPMs progressing toward senior technical roles. Twelve sequenced lesson tabs cover system basics, AI/ML, quality, training, inference, Intel hardware and software, benchmarks, Kubernetes, incidents, agents and customer engineering. Each lesson has a five-row concept table with an intuitive use case, TPM takeaway and metric, plus deeper notes, self-check questions, an interview answer and common mistakes. Each lesson and Start tab ends with a domain-specific calculator, three KPI recipes, an editable baseline/current trend and an OKR recipe. The Calculators and Master tabs end with a filterable cross-domain formula compendium. All tabs retain animated SVG concept cartoons with reduced-motion support. Curated 29 September 2026.
 
 ## Run locally
 
